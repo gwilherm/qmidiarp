@@ -1,8 +1,8 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-dnl AC_PREREQ([2.63])
-AC_INIT([qmidiarp], [0.6.6], [qmidiarp-devel@lists.sourceforge.net])
+dnl AC_PREREQ([2.71])
+AC_INIT([qmidiarp],[0.6.6],[qmidiarp-devel@lists.sourceforge.net])
 AC_CONFIG_SRCDIR([src/main.cpp])
 AC_CONFIG_HEADERS(src/config.h)
 AC_CONFIG_MACRO_DIR([m4])
@@ -36,14 +36,14 @@ AC_CHECK_LIB([m], [roundf], , AC_MSG_ERROR([required libm missing]))
 
 
 AC_ARG_ENABLE(alsa,
-  AC_HELP_STRING([--enable-alsa], [provide ALSA backend option (default=yes)]),
+  AS_HELP_STRING([--enable-alsa],[provide ALSA backend option (default=yes)]),
   [ac_alsa="$enableval"],
   [ac_alsa="yes"])
 alsalib_found="yes"
 
 # Build LV2 plugins
 AC_ARG_ENABLE(lv2plugins,
-  AC_HELP_STRING([--enable-lv2plugins], [build LV2 plugins (default=yes)]),
+  AS_HELP_STRING([--enable-lv2plugins],[build LV2 plugins (default=yes)]),
   [ac_lv2plugins="$enableval"],
   [ac_lv2plugins="yes"])
 
@@ -73,7 +73,7 @@ fi
 
 # Build LV2 plugin Qt UIs ?
 AC_ARG_ENABLE(lv2pluginuis,
-    AC_HELP_STRING([--enable-lv2pluginuis], [build LV2 plugin UIs (default=yes)]),
+    AS_HELP_STRING([--enable-lv2pluginuis],[build LV2 plugin UIs (default=yes)]),
   [ac_lv2pluginuis="$enableval"],
   [ac_lv2pluginuis="yes"])
 
@@ -81,14 +81,13 @@ AM_CONDITIONAL([BUILD_LV2_UI], [test "x$ac_lv2pluginuis" = "xyes" -a "x$ac_lv2wi
 
 # Build QMidiArp standalone application ?
 AC_ARG_ENABLE(buildapp,
-    AC_HELP_STRING([--enable-buildapp], [build standalone application (default=yes)]),
+    AS_HELP_STRING([--enable-buildapp],[build standalone application (default=yes)]),
   [ac_buildapp="$enableval"],
   [ac_buildapp="yes"])
 
 AM_CONDITIONAL([BUILD_APP], [test "x$ac_buildapp" = "xyes"])
 
-AC_ARG_ENABLE(qt4, AC_HELP_STRING([--enable-qt4],
-                          [force Qt4 instead of Qt5 library (default=no)]),,
+AC_ARG_ENABLE(qt4, AS_HELP_STRING([--enable-qt4],[force Qt4 instead of Qt5 library (default=no)]),,
                           enable_qt4=no)
                           
 if test "x$ac_buildapp" = "xyes" -o ["x$ac_lv2pluginuis" = "xyes"  -a "x$ac_lv2willbuild" = "xyes"]; then
@@ -158,7 +157,7 @@ if test "x$ac_buildapp" = "xyes" -o ["x$ac_lv2pluginuis" = "xyes"  -a "x$ac_lv2w
     
     # Enable translations.
     AC_ARG_ENABLE(translations,
-      AC_HELP_STRING([--enable-translations], [enable translation file generation (default=no)]),
+      AS_HELP_STRING([--enable-translations],[enable translation file generation (default=no)]),
       [ac_translations="$enableval"],
       [ac_translations="no"])
     
@@ -215,7 +214,7 @@ if test "x$ac_buildapp" = "xyes" ; then
                  [AC_MSG_ERROR(JACK library (jack) is required)])
     # Enable NSM support
     AC_ARG_ENABLE(nsm,
-      AC_HELP_STRING([--enable-nsm], [enable NSM support generation (default=yes)]),
+      AS_HELP_STRING([--enable-nsm],[enable NSM support generation (default=yes)]),
       [ac_nsm="$enableval"],
       [ac_nsm="yes"])
     
@@ -268,7 +267,15 @@ fi
 rm -f src/mainwindow_moc.cpp
 
 # Checks for header files.
-AC_HEADER_STDC
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
