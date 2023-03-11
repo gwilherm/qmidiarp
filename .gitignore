@@ -61,3 +61,6 @@ ltmain.sh
 /doxygen-doc
 /qmidiarp-*.tar.bz2
 /qmidiarp-*.tar.gz
+moc_*
+.qmake.stash
+qmidiarp

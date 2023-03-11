@@ -84,5 +84,6 @@ TRANSLATIONS += \
         src/translations/qmidiarp_fr.ts
             
 
-LIBS += c:/Qt/Tools/mingw492_32/lib/libjack.lib
-INCLUDEPATH = c:/Qt/Tools/mingw492_32/include c:/Qt/5.6/mingw49_32/include/QtWidgets
+unix:  LIBS += -llo -lasound -ljack
+win32: LIBS += c:/Qt/Tools/mingw492_32/lib/libjack.lib
+win32: INCLUDEPATH = c:/Qt/Tools/mingw492_32/include c:/Qt/5.6/mingw49_32/include/QtWidgets
